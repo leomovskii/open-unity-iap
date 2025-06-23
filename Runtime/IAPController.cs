@@ -1,5 +1,8 @@
+using PlasticPipe.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
@@ -11,34 +14,56 @@ namespace OpenIAP {
 
 		public static IAPController Instance {
 			get {
-				if (_instance == null)
-					InternalInitialize();
+				Initialize();
 				return _instance;
 			}
 		}
 
 		public static void Initialize() {
-			if (_instance == null)
+			if (UnityServices.State is ServicesInitializationState.Uninitialized)
+				InitializeServices(InternalInitialize);
+			else
 				InternalInitialize();
+
+			static void InternalInitialize() {
+				if (_instance == null) {
+					Debug.Log("[IAP] Initialization start.");
+					_instance = new IAPController();
+
+					var module = StandardPurchasingModule.Instance();
+					module.useFakeStoreUIMode = FakeStoreUIMode.Default;
+
+					var builder = ConfigurationBuilder.Instance(module);
+
+					foreach (var product in Catalog.allValidProducts) {
+						IDs ids = null;
+
+						if (product.allStoreIDs.Count > 0) {
+							ids = new IDs();
+							foreach (var storeID in product.allStoreIDs)
+								ids.Add(storeID.id, storeID.store);
+						}
+
+						var payoutDefinitions = new List<PayoutDefinition>();
+						foreach (var payout in product.Payouts)
+							payoutDefinitions.Add(new PayoutDefinition(payout.typeString, payout.subtype, payout.quantity, payout.data));
+						builder.AddProduct(product.id, product.type, ids, payoutDefinitions.ToArray());
+					}
+
+					Builder = builder;
+
+					UnityPurchasing.Initialize(Instance, builder);
+					Debug.Log("[IAP] Initialization complete.");
+				}
+			}
 		}
 
-		private static void InternalInitialize() {
-			Debug.Log("[IAP] Initialization start.");
-			_instance = new IAPController();
-
-			var module = StandardPurchasingModule.Instance();
-			module.useFakeStoreUIMode = FakeStoreUIMode.Default;
-
-			var builder = ConfigurationBuilder.Instance(module);
-
-			IAPExtensions.PopulateConfigurationBuilder(ref builder, Catalog);
-			Builder = builder;
-
-			UnityPurchasing.Initialize(Instance, builder);
-			Debug.Log("[IAP] Initialization complete.");
+		private async static void InitializeServices(Action callback) {
+			await UnityServices.InitializeAsync();
+			callback?.Invoke();
 		}
 
-		private readonly List<IAPItem> _codeless = new List<IAPItem>();
+		private readonly List<IAPButton> _codeless = new List<IAPButton>();
 		private readonly List<IAPListener> _listeners = new List<IAPListener>();
 
 		public static IStoreController Controller { get; private set; }
@@ -47,6 +72,7 @@ namespace OpenIAP {
 		public static ProductCatalog Catalog { get; private set; }
 
 		public static bool Initialized { get; private set; }
+		public static event Action OnInitializedEvent;
 
 		private IAPController() {
 			Catalog = ProductCatalog.LoadDefaultCatalog();
@@ -86,11 +112,11 @@ namespace OpenIAP {
 			return product != null;
 		}
 
-		public void AddButton(IAPItem button) {
+		public void AddButton(IAPButton button) {
 			_codeless.Add(button);
 		}
 
-		public void RemoveButton(IAPItem button) {
+		public void RemoveButton(IAPButton button) {
 			_codeless.Remove(button);
 		}
 
@@ -130,6 +156,8 @@ namespace OpenIAP {
 				iapListener.onProductsFetched.Invoke(controller.products);
 
 			HandleOnInitForAllButtons();
+
+			OnInitializedEvent?.Invoke();
 		}
 
 		void HandleOnInitForAllButtons() {

@@ -4,7 +4,9 @@
     "references": [
         "UnityEditor.Purchasing",
         "UnityEngine.Purchasing",
-        "UnityEngine.Purchasing.Stores"
+        "UnityEngine.Purchasing.Stores",
+        "Unity.Services.Core",
+        "Unity.Services.Core.Telemetry"
     ],
     "includePlatforms": [
         "Android",
