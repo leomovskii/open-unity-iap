@@ -1,0 +1,22 @@
+{
+  "name": "ua.leomovskii.unity.purchasing",
+  "version": "1.0.0",
+  "displayName": "Open Unity IAP",
+  "description": "A utility that extends the standard UnityEngine.Purchasing",
+  "unity": "2022.3",
+  "type": "library",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "leomovskii",
+    "url": "https://linktr.ee/leomovskii"
+  },
+  "dependencies": {
+    "com.unity.purchasing": "4.10.0"
+  },
+  "keywords": [
+    "iap",
+    "purchasing",
+    "unity",
+    "extensions"
+  ]
+}
