@@ -49,7 +49,25 @@ public void ExampleCall() {
 
 ## IAPListener, IAPButtonBase, IAPButton
 
-In general, they work the same way as in CodelessIAPStoreListener, but they are required if used to bypass the standard CodelessIAPStoreListener. IAPButton additionally has a function that allows you to ignore the button off status and has the ability to display text with the product price.
+In general, they work the same way as in CodelessIAPStoreListener, but they are required if used to bypass the standard CodelessIAPStoreListener.
+
+IAPButton additionally has a function that allows you to ignore the button off status and has the ability to display text with the product price.
+If you want to use TMP_Text as price display text, add & use script, which extends :
+
+```csharp
+using OpenIAP;
+using TMPro;
+using UnityEngine;
+
+public class TMPTextWrapper : MonoBehaviour, ITextComponent {
+
+	[SerializeField] private TMP_Text _tmpText;
+	public string Text {
+		get => _tmpText.text;
+		set => _tmpText.text = value;
+	}
+}
+```
 
 ## IAPExtensions
 
