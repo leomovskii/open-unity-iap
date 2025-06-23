@@ -10,7 +10,7 @@ Open Unity API is a plugin that extends the capabilities of the standard Unity I
 
 ## IAPController
 
-This is a complete replacement for CodelessIAPStoreListener. Its work has been stabilized, and support for legacy buttons has been disabled. The plugin initializes itself on the first call to IAPController.Instance. However, you can do it manually:
+This is a complete replacement for **CodelessIAPStoreListener**. Its work has been stabilized, and support for legacy buttons has been disabled. The plugin initializes itself on the first call to **IAPController.Instance**. However, you can do it manually:
 
 ```csharp
 public void ExampleInit() {
@@ -49,10 +49,10 @@ public void ExampleCall() {
 
 ## IAPListener, IAPButtonBase, IAPButton
 
-In general, they work the same way as in CodelessIAPStoreListener, but they are required if used to bypass the standard CodelessIAPStoreListener.
+In general, they work the same way as in **CodelessIAPStoreListener**, but they are required if used to bypass the standard **CodelessIAPStoreListener**.
 
 IAPButton additionally has a function that allows you to ignore the button off status and has the ability to display text with the product price.
-If you want to use TMP_Text as price display text, add & use script, which extends :
+If you want to use **TMP_Text** as price display text, add & use script, which extends **ITextComponent** interface:
 
 ```csharp
 using OpenIAP;
