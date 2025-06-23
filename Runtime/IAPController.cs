@@ -1,4 +1,3 @@
-using PlasticPipe.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,7 +170,7 @@ namespace OpenIAP {
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error, string message) {
-			var errorMessage = $"Purchasing failed to initialize. Reason: {error.ToString()}.";
+			var errorMessage = $"Purchasing failed to initialize. Reason: {error}.";
 
 			if (message != null) {
 				errorMessage += $" More details: {message}";

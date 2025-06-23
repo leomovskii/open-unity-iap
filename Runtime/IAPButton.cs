@@ -1,5 +1,4 @@
 using System;
-//using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Purchasing.Extension;
@@ -42,7 +41,7 @@ namespace OpenIAP {
 		[HideInInspector]
 		public string productId;
 
-		public MaskableGraphic priceText;
+		public MonoBehaviour priceText;
 
 		/// <summary>
 		/// The type of this button, can be either a purchase or a restore button.
@@ -86,14 +85,8 @@ namespace OpenIAP {
 		protected override void PurchaseButtonInitializedAction(Product product) {
 			base.PurchaseButtonInitializedAction(product);
 
-			if (priceText == null)
-				return;
-
-			if (priceText is Text uiText)
-				uiText.text = product.GetPrice();
-
-			/*else if (priceText is TMP_Text tmpText)
-				tmpText.text = product.GetPrice();*/
+			if (priceText is not null and ITextComponent textComponent)
+				textComponent.Text = product.GetPrice();
 		}
 
 		public override string GetProductId() {
