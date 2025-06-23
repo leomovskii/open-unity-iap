@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 
 namespace OpenIAPEditor {
-	public class AbstractIAPItemEditor : UnityEditor.Editor {
+	public class AbstractIAPItemEditor : Editor {
 
 		private static readonly string[] excludedFields = new string[] { "m_Script", "onTransactionsRestored" };
 		private static readonly string[] restoreButtonExcludedFields = new string[] { "m_Script", "consumePurchase", "onPurchaseComplete", "onPurchaseFailed", "titleText", "descriptionText", "priceText" };

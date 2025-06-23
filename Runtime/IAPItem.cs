@@ -1,5 +1,5 @@
 using System;
-using TMPro;
+//using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Purchasing.Extension;
@@ -48,7 +48,7 @@ namespace OpenIAP {
 		/// The type of this button, can be either a purchase or a restore button.
 		/// </summary>
 		[Tooltip("The type of this button, can be either a purchase or a restore button.")]
-		public CodelessButtonType buttonType = CodelessButtonType.Purchase;
+		public IAPButtonType buttonType = IAPButtonType.Purchase;
 
 		/// <summary>
 		/// Consume the product immediately after a successful purchase.
@@ -92,8 +92,8 @@ namespace OpenIAP {
 			if (_priceText is Text uiText)
 				uiText.text = product.GetPrice();
 
-			else if (_priceText is TMP_Text tmpText)
-				tmpText.text = product.GetPrice();
+			/*else if (_priceText is TMP_Text tmpText)
+				tmpText.text = product.GetPrice();*/
 		}
 
 		public override string GetProductId() {
@@ -101,11 +101,11 @@ namespace OpenIAP {
 		}
 
 		public override bool IsAPurchaseButton() {
-			return buttonType == CodelessButtonType.Purchase;
+			return buttonType == IAPButtonType.Purchase;
 		}
 
 		public override bool IsARestoreButton() {
-			return buttonType == CodelessButtonType.Restore;
+			return buttonType == IAPButtonType.Restore;
 		}
 
 		protected override bool ShouldConsumePurchase() {

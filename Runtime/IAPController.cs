@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
 
 namespace OpenIAP {
 	public class IAPController : IDetailedStoreListener {
@@ -23,19 +22,16 @@ namespace OpenIAP {
 				InternalInitialize();
 		}
 
-		private static async void InternalInitialize() {
+		private static void InternalInitialize() {
 			Debug.Log("[IAP] Initialization start.");
 			_instance = new IAPController();
-
-			if (UnityServices.State is ServicesInitializationState.Uninitialized)
-				await UnityServices.InitializeAsync();
 
 			var module = StandardPurchasingModule.Instance();
 			module.useFakeStoreUIMode = FakeStoreUIMode.Default;
 
 			var builder = ConfigurationBuilder.Instance(module);
 
-			IAPConfigurationHelper.PopulateConfigurationBuilder(ref builder, Catalog);
+			IAPExtensions.PopulateConfigurationBuilder(ref builder, Catalog);
 			Builder = builder;
 
 			UnityPurchasing.Initialize(Instance, builder);

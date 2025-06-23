@@ -1,8 +1,16 @@
 {
     "name": "OpenIAP",
     "rootNamespace": "OpenIAP",
-    "references": [],
-    "includePlatforms": [],
+    "references": [
+        "UnityEditor.Purchasing",
+        "UnityEngine.Purchasing",
+        "UnityEngine.Purchasing.Stores"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
