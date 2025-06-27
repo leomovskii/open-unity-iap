@@ -7,8 +7,6 @@ namespace OpenIAP {
 
 		public bool autoUnsubscribe;
 
-		protected abstract bool ShouldConsumePurchase();
-
 		protected abstract void OnTransactionsRestored(bool success, string error);
 		protected abstract void OnPurchaseComplete(Product purchasedProduct);
 
@@ -77,7 +75,7 @@ namespace OpenIAP {
 		protected PurchaseProcessingResult ProcessPurchaseInternal(PurchaseEventArgs args) {
 			OnPurchaseComplete(args.purchasedProduct);
 
-			return ShouldConsumePurchase() ? PurchaseProcessingResult.Complete : PurchaseProcessingResult.Pending;
+			return PurchaseProcessingResult.Complete;
 		}
 
 		void Restore() {

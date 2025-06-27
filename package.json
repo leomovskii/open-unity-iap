@@ -1,6 +1,6 @@
 {
   "name": "ua.leomovskii.unity.purchasing",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "displayName": "Open Unity IAP",
   "description": "A utility that extends the standard UnityEngine.Purchasing",
   "unity": "2022.3",

@@ -13,7 +13,7 @@ namespace OpenIAPEditor {
 		private readonly static string TextNoProduct = "<None>";
 
 		private static readonly string[] excludedFields = new string[] { "m_Script", "onTransactionsRestored" };
-		private static readonly string[] restoreButtonExcludedFields = new string[] { "m_Script", "consumePurchase", "onPurchaseComplete", "onPurchaseFailed", "titleText", "descriptionText", "priceText", "autoUnsubscribe" };
+		private static readonly string[] restoreButtonExcludedFields = new string[] { "m_Script", "onPurchaseComplete", "onPurchaseFailed", "titleText", "descriptionText", "priceText", "autoUnsubscribe" };
 
 		private readonly List<string> m_ValidIDs = new List<string>();
 		private SerializedProperty m_ProductIDProperty;

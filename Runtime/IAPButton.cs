@@ -50,12 +50,6 @@ namespace OpenIAP {
 		public IAPButtonType buttonType = IAPButtonType.Purchase;
 
 		/// <summary>
-		/// Consume the product immediately after a successful purchase.
-		/// </summary>
-		[Tooltip("Consume the product immediately after a successful purchase.")]
-		public bool consumePurchase = true;
-
-		/// <summary>
 		/// Event fired after a restore transactions.
 		/// </summary>
 		[Tooltip("Event fired after a restore transactions.")]
@@ -99,10 +93,6 @@ namespace OpenIAP {
 
 		public override bool IsARestoreButton() {
 			return buttonType == IAPButtonType.Restore;
-		}
-
-		protected override bool ShouldConsumePurchase() {
-			return consumePurchase;
 		}
 
 		protected override void OnTransactionsRestored(bool success, string error) {
